@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5x5 Letter Grid</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+        .reset-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px; /* Adds spacing between button and grid */
+        }
+        .reset-button:hover {
+            background-color: #0056b3;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(5, 50px);
+            grid-gap: 10px;
+        }
+        .grid-container input {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase; /* Automatically converts to uppercase */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .grid-container input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Reset Button -->
+    <button class="reset-button" id="reset-button">Reset</button>
+    
+    <div class="grid-container">
+        <!-- Create 25 text boxes -->
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+        <input type="text" maxlength="1">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputs = document.querySelectorAll('.grid-container input');
+            const resetButton = document.getElementById('reset-button');
+
+            inputs.forEach((input, index) => {
+                // Handle input behavior
+                input.addEventListener('input', () => {
+                    // Ensure only alphabets are accepted
+                    if (!/^[a-zA-Z]$/.test(input.value)) {
+                        input.value = ''; // Clear invalid input
+                        return;
+                    }
+
+                    input.value = input.value.toUpperCase(); // Convert to uppercase
+                    const nextInput = inputs[index + 1];
+                    if (nextInput && Math.floor(index / 5) === Math.floor((index + 1) / 5)) {
+                        nextInput.focus();
+                    }
+                });
+
+                // Handle backspace behavior
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && input.value === '') {
+                        const prevInput = inputs[index - 1];
+                        if (prevInput && Math.floor(index / 5) === Math.floor((index - 1) / 5)) {
+                            prevInput.value = ''; // Clear the previous input
+                            prevInput.focus();
+                        }
+                    }
+
+                    // Handle Enter key only when the current row is filled
+                    if (e.key === 'Enter') {
+                        const rowStartIndex = Math.floor(index / 5) * 5;
+                        const rowEndIndex = rowStartIndex + 5;
+                        const isRowFilled = Array.from(inputs)
+                            .slice(rowStartIndex, rowEndIndex)
+                            .every(input => input.value.trim() !== '');
+
+                        if (isRowFilled) {
+                            const nextRowStartIndex = rowEndIndex;
+                            if (nextRowStartIndex < inputs.length) {
+                                inputs[nextRowStartIndex].focus();
+                            }
+                        } else {
+                            e.preventDefault(); // Prevent Enter if the row isn't filled
+                        }
+                    }
+                });
+            });
+
+            // Reset button functionality
+            resetButton.addEventListener('click', () => {
+                inputs.forEach(input => {
+                    input.value = ''; // Clear all inputs
+                });
+                inputs[0].focus(); // Set focus to the first input
+            });
+        });
+    </script>
+</body>
+</html>
