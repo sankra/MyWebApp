@@ -1,4 +1,4 @@
-1. Clone the Repository**
+1. Clone the Repository
 ```bash
 git clone https://github.com/your-username/your-django-project.git
 cd your-django-project
