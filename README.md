@@ -4,6 +4,7 @@
 This is a Django-based web application designed to [briefly describe functionality]. It provides features such as [list key features]. The project is built using Python and Django and follows best practices for security, scalability, and maintainability.
 
 ---
+---
 
 ## 🚀 Features
 - ✅ User Authentication (Login, Registration)
