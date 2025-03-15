@@ -1,0 +1,32 @@
+1. Clone the Repository**
+```bash
+git clone https://github.com/your-username/your-django-project.git
+cd your-django-project
+
+2. Set Up Virtual Environment
+python3 -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+
+3. Install Dependencies
+
+pip install -r requirements.txt
+
+4. Configure Environment Variables
+Rename .env.example to .env and update the necessary configurations:
+
+mv .env.example .env
+nano .env  # Update settings like DATABASE_URL, SECRET_KEY
+
+5. Run Migrations
+
+python manage.py makemigrations
+python manage.py migrate
+
+6. Create Superuser (For Admin Panel)
+
+python manage.py createsuperuser
+
+7. Run the Development Server
+
+python manage.py runserver
+Access the app at http://127.0.0.1:8000/
